@@ -12,3 +12,10 @@ module.exports.findById = async ({id}) => {
     id
   }).select('id', 'username', 'password')
 }
+
+module.exports.findByName = async ({username}) => {
+  return await pg('user').where({
+    username
+  }).select('id', 'username', 'password')
+}
+

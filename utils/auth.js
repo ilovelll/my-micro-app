@@ -1,50 +1,38 @@
 const { json, send, createError } = require('micro');
 const { compareSync, hash } = require('bcrypt');
+const { readFileSync  } = require('fs')
+const path = require('path')
 const { sign, verify } = require('jsonwebtoken');
 const assert = require('assert');
 
 const secret = {
-  private: readFileSync(`${path.join(__dirname, 'certs')}/key.pem`, 'utf8'),
-  public: readFileSync(`${path.join(__dirname, 'certs')}/public.pem`, 'utf8')
-},
+  private: readFileSync(`${path.resolve(__dirname, '../certs')}/key.pem`, 'utf8'),
+  public: readFileSync(`${path.resolve(__dirname, '../certs')}/public.pem`, 'utf8')
+}
 const User = require('../models/user');
 
 /**
  * Attempt to authenticate a user.
  */
-const attempt = (username, password) => {
-  return User.find({ username: username }).exec().then((users, err) => {
-    if (!users.length) {
-      throw createError(401, 'That user does not exist');
-    }
-
-    const user = users[0];
-    if (!compareSync(password, user.password)) {
-      throw createError(401, 'Wrong password');
-    }
-    return user;
-  });
+const attempt = async (id, password) => {
+  const result = await User.findById({id})
+  if (result.length === 0) {
+    throw createError(401, 'That user does not exist');
+  }
+  const user = result[0]
+  console.log('password: ', password)
+  console.log('user: ', JSON.stringify(user))
+  if (!compareSync(password, user.password)) {
+    throw createError(401, 'Wrong password');
+  }
+  return user;
 };
 
-/**
- * Authenticate a user and generate a JWT if successful.
- */
-const auth = ({ username, password }) =>
-  attempt(username, password).then(({ id }) => {
-    let token = sign({ id }, secret.private, { algorithm: 'RS256'});;
-    return { token: token };
-  });
-
-const decode = token => verify(token, secret.public);
-
-module.exports.login = async (req, res) => {
-  await auth(await json(req));
+module.exports.auth = async ({ id, password }) => {
+  let user = await attempt(id, password)
+  let token = sign(user, secret.private, { algorithm: 'RS256'});
+  return { token: token };
 }
 
-module.exports.decode = (req, res) => {
-  try {
-    return decode(req.headers['authorization'])
-  } catch(err) {
-    throw createError(401, "auth fail")
-  }
-};
+module.exports.decode = token => verify(token, secret.public);
+
