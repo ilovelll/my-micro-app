@@ -1,0 +1,35 @@
+{
+  "name": "my-micro-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "micro",
+    "dev": "micro-dev",
+    "tsdev": "./node_modules/.bin/tsnd ./index.ts",
+    "build": "ncc build index.ts"
+  },
+  "author": "Johny.Li <johny.li@selmit.com>",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-micro": "^2.3.1",
+    "bcrypt": "^3.0.2",
+    "busboy": "^0.2.14",
+    "dotenv": "^6.2.0",
+    "express-fileupload": "^1.0.0",
+    "graphql": "^14.0.2",
+    "ioredis": "^4.3.0",
+    "jsonwebtoken": "^8.4.0",
+    "knex": "^0.16.3",
+    "micro": "^9.3.3",
+    "micro-fork": "^0.1.1",
+    "minio": "^7.0.2",
+    "pg": "^7.7.1"
+  },
+  "devDependencies": {
+    "micro-dev": "^3.0.0",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.2.2"
+  }
+}
