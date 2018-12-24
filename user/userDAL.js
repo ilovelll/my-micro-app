@@ -1,4 +1,4 @@
-const pg = require('./db.js')
+const pg = require('../utils/db.js')
 const { hashSync } = require('bcrypt')
 
 module.exports.newuser = async ({username, password}) => {
@@ -18,4 +18,3 @@ module.exports.findByName = async ({username}) => {
     username
   }).select('id', 'username', 'password')
 }
-

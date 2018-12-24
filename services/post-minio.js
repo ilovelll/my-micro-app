@@ -28,5 +28,5 @@ module.exports = upload(async (req, res) => {
   const key = `${generateUUID()}.${file.mimetype.split('/').pop()}` // this works for png, jpg, pdf, ...
 
   const result = await minioClient.putObject('microuploads', key, file.data)
-  send(res, 200, result)
+  send(res, 200, {result, key})
 })
