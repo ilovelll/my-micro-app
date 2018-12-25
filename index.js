@@ -11,6 +11,7 @@ module.exports = router()(
   post('/upload', upload),
   post('/register', newuser),
   post('/login', login),
+  post('/decode', decode),
   get('/find/:id', findById),
   get('/find2/:username', findByName),
   get('/*', notfound)

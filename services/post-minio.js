@@ -2,7 +2,6 @@ const { send } = require('micro')
 const Minio = require("minio")
 const { upload } = require('../utils/micro-upload')
 const { randomBytes } = require('crypto')
-const Busboy = require("busboy")
 const inspect = require('util').inspect;
 
 const generateUUID = (size = 10) => {
