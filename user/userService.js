@@ -1,5 +1,5 @@
 const {json, createError, send } = require('micro');
-const { compareSync } = require('bcrypt');
+const { compare } = require('bcrypt');
 const User = require('./userDAL');
 const { sign, verify } = require('../utils/auth')
 
@@ -24,9 +24,8 @@ const attempt = async ({id, password}) => {
     throw createError(401, 'That user does not exist');
   }
   const user = result[0]
-  if (!compareSync(password, user.password)) {
-    throw createError(401, 'Wrong password');
-  }
+  const match = await compare(password.toString(), user.password);
+  if (!match) throw createError(401, 'Wrong password');
   return user;
 }
 
