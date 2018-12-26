@@ -1,5 +1,6 @@
-const {json, createError, send } = require('micro');
+const {json, send } = require('micro');
 const { compare } = require('bcrypt');
+const Boom = require('boom');
 const User = require('./userDAL');
 const { sign, verify } = require('../utils/auth')
 
@@ -21,29 +22,21 @@ module.exports.findByName = async (req, res) => {
 const attempt = async ({id, password}) => {
   const result = await User.findById({id})
   if (result.length === 0) {
-    throw createError(401, 'That user does not exist');
+    throw Boom.unauthorized('That user does not exist')
   }
   const user = result[0]
   const match = await compare(password.toString(), user.password);
-  if (!match) throw createError(401, 'Wrong password');
+  if (!match) throw Boom.unauthorized('Wrong password');
   return user;
 }
 
 module.exports.login = async (req, res) => {
-  try {
     const user = await attempt(await json(req))
     let token = sign(user)
     send(res, 200, { token })
-  } catch (error) {
-    throw error;
-  }
 }
 
 module.exports.decode = (req, res) => {
-  try {
     const result = verify(req.headers['authorization'])
     send(res, 200, result)
-  } catch(err) {
-    throw err
-  }
 };
