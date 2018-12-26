@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "lab -a code",
+    "test": "lab -a code || ECHO.",
     "start": "micro",
     "dev": "micro-dev",
     "tsdev": "./node_modules/.bin/tsnd ./index.ts",
@@ -16,9 +16,7 @@
     "apollo-server-micro": "^2.3.1",
     "bcrypt": "^3.0.2",
     "boom": "^7.3.0",
-    "busboy": "^0.2.14",
     "dotenv": "^6.2.0",
-    "express-fileupload": "^1.0.0",
     "find-my-way": "^1.17.0",
     "graphql": "^14.0.2",
     "ioredis": "^4.3.0",
@@ -35,6 +33,7 @@
     "form-data": "^2.3.3",
     "lab": "^18.0.1",
     "micro-dev": "^3.0.0",
+    "test-listen": "^1.1.0",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.2.2"
   }

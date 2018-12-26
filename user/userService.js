@@ -31,7 +31,6 @@ const attempt = async ({id, password}) => {
 
 module.exports.login = async (req, res) => {
   try {
-    console.log(req.body)
     const user = await attempt(await json(req))
     let token = sign(user)
     send(res, 200, { token })

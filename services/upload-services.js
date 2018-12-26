@@ -21,8 +21,7 @@ const minioClient = new Minio.Client({
 module.exports = async (req, res) => {
   const { payload, mime } = await Subtext.parse(req, null, { parse: true, output: 'stream' });
   const file = payload.file
-  console.log(file, mime)
-
+  
   if (!payload||!file) {
     return send(res, 400, 'no file uploaded')
   }
