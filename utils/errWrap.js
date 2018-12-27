@@ -21,7 +21,9 @@ module.exports.errWrap = (fn, dump = false) => {
       if (statusCode < 400) {
         statusCode = 500
       }
-
+      if (statusCode >= 500 && process.env.NODE_ENV === 'production') {
+        //TODO sending err log to log store
+      }
       // Wrap the error and generate the response
       const error = err.isBoom ? Boom.boomify(err) : Boom.boomify(err, {statusCode})
 
