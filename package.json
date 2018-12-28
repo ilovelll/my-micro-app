@@ -29,9 +29,11 @@
     "wreck": "^14.1.3"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "form-data": "^2.3.3",
     "jest": "^23.6.0",
     "micro-dev": "^3.0.0",
+    "microtime": "^2.1.8",
     "r2": "^2.0.1",
     "test-listen": "^1.1.0",
     "ts-node-dev": "^1.0.0-pre.32",
