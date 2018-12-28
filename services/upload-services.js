@@ -1,5 +1,6 @@
 const { send } = require('micro')
 const Minio = require("minio")
+const Boom = require('boom');
 const { randomBytes } = require('crypto')
 const Subtext = require('subtext');
 
@@ -23,7 +24,7 @@ module.exports = async (req, res) => {
   const file = payload.file
   
   if (!payload||!file) {
-    return send(res, 400, 'no file uploaded')
+    throw Boom.badRequest("no file uploaded")
   }
   const key = `${generateUUID()}.${file.hapi.headers["content-type"].split('/').pop()}` // this works for png, jpg, pdf, ...
 

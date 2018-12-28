@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest -o --detectOpenHandles --forceExit",
     "start": "micro",
     "dev": "micro-dev",
     "tsdev": "./node_modules/.bin/tsnd ./index.ts",
@@ -32,6 +32,7 @@
     "form-data": "^2.3.3",
     "jest": "^23.6.0",
     "micro-dev": "^3.0.0",
+    "r2": "^2.0.1",
     "test-listen": "^1.1.0",
     "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.2.2"
