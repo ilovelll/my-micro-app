@@ -33,5 +33,7 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# project releated
 .env
 /certs
