@@ -2,7 +2,7 @@ const {json, send } = require('micro');
 const { compare } = require('bcrypt');
 const Boom = require('boom');
 const User = require('./userDAL');
-const { sign, verify } = require('../utils/auth')
+const { sign, verify } = require('../../utils/auth')
 
 module.exports.newuser = async (req, res) => {
   const result = await User.newuser(await json(req))
