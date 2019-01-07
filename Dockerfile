@@ -8,7 +8,8 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-RUN npm install --only=production
+RUN apt-get update && apt-get install -y build-essential python\
+  &&npm install --only=production
 
 COPY . .
 
