@@ -35,7 +35,7 @@ module.exports.login = async (req, res) => {
   let form = await json(req);
   const {error} = Joi.validate(form, require('./requestSchema').loginSchema);
   if (error) {
-    throw Boom.badData(err.details[0].message);
+    throw Boom.badData(error.details[0].message);
   }
   const user = await attempt(form)
   let token = sign(user)

@@ -24,7 +24,7 @@ module.exports.errWrap = (fn) => {
       }
       if (statusCode >= 500 && process.env.NODE_ENV === 'production') {
         //TODO sending err log to log store
-      } else {
+      } else if (process.env.NODE_ENV !== 'test'){
         console.error(err)
       }
       // Wrap the error and generate the response
