@@ -1,6 +1,7 @@
 const {json, send } = require('micro');
 const { compare } = require('bcrypt');
 const Boom = require('boom');
+const Joi = require('joi');
 const User = require('./userDAL');
 const { sign, verify } = require('../../utils/auth')
 
@@ -31,9 +32,14 @@ const attempt = async ({id, password}) => {
 }
 
 module.exports.login = async (req, res) => {
-    const user = await attempt(await json(req))
-    let token = sign(user)
-    send(res, 200, { token })
+  let form = await json(req);
+  const {error} = Joi.validate(form, require('./requestSchema').loginSchema);
+  if (error) {
+    throw Boom.badData(err.details[0].message);
+  }
+  const user = await attempt(form)
+  let token = sign(user)
+  send(res, 200, { token })
 }
 
 module.exports.decode = (req, res) => {

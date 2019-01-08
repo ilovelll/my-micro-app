@@ -4,9 +4,9 @@ module.exports.UploadService = errWrap(require('./upload-services'))
 module.exports.ApolloService = require('./apollo-service').createHandler()
 
 module.exports.UserServices = {
-  newuser: require('./user/userService').newuser,
-  findById: require('./user/userService').findById,
-  findByName: require('./user/userService').findByName,
-  login: require('./user/userService').login,
-  decode: require('./user/userService').decode,
+  newuser: errWrap(require('./user/userService').newuser),
+  findById: errWrap(require('./user/userService').findById),
+  findByName: errWrap(require('./user/userService').findByName),
+  login: errWrap(require('./user/userService').login),
+  decode: errWrap(require('./user/userService').decode),
 }

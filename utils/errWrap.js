@@ -1,20 +1,21 @@
 const { send } = require('micro')
 const Boom = require('boom')
 
-module.exports.errWrap = (fn, dump = false) => {
+module.exports.errWrap = (fn) => {
   return async (req, res) => {
     try {
       return await fn(req, res)
     } catch (err) {
-      if (dump) console.error(err.stack)
 
       // Determine status code in determined order
       let statusCode = res.statusCode || 500
+
       if (err.isBoom) {
         statusCode = err.output.statusCode
       } else if (err.statusCode) {
         statusCode = err.statusCode
       }
+
 
       // Since it's an error, it's safe to assume <400
       // status codes are a mistake.
@@ -23,6 +24,8 @@ module.exports.errWrap = (fn, dump = false) => {
       }
       if (statusCode >= 500 && process.env.NODE_ENV === 'production') {
         //TODO sending err log to log store
+      } else {
+        console.error(err)
       }
       // Wrap the error and generate the response
       const error = err.isBoom ? Boom.boomify(err) : Boom.boomify(err, {statusCode})
