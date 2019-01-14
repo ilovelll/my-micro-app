@@ -1,10 +1,6 @@
-FROM node:11-alpine
+FROM bitnami/node:11-debian-9
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
-
-RUN apk --no-cache add --virtual native-deps \
-  g++ gcc libgcc libstdc++ linux-headers autoconf automake make nasm python git && \
-  npm install --quiet node-gyp -g
 
 WORKDIR /home/node/app
 
