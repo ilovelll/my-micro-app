@@ -7,7 +7,7 @@
     "test": "jest -o --detectOpenHandles --forceExit",
     "start": "micro",
     "dev": "micro-dev",
-    "tsdev": "./node_modules/.bin/tsnd ./index.ts",
+    "tsdev": "npx tsnd ./index.ts",
     "build": "ncc build index.ts"
   },
   "author": "Johny.Li <johny.li@selmit.com>",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "benchmark": "^2.1.4",
     "form-data": "^2.3.3",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "micro-dev": "^3.0.0",
     "microtime": "^2.1.8",
     "r2": "^2.0.1",
